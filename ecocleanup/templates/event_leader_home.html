@@ -1,0 +1,92 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Event Leader Home{% endblock %}
+
+{% set active_page = 'home' %}
+
+{% block content %}
+<!-- Simple Welcome Section -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 bg-light">
+            <div class="card-body">
+                <h3>Welcome back, {{ session.username }}!</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Events Section -->
+<div class="row">
+    <div class="col-12">
+        <!-- Upcoming Events Card -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-eco-green text-white">
+                <h5 class="mb-0">Your Upcoming Events</h5>
+            </div>
+            <div class="card-body">
+                {% if my_events %}
+                    {% set upcoming = my_events|selectattr('event_date', '>=', today)|list %}
+                    {% if upcoming %}
+                        <div class="row">
+                            {% for event in upcoming %}
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100 border-0 shadow-sm">
+                                    <div class="card-body">
+                                        <h6 class="card-title fw-bold">{{ event.event_name }}</h6>
+                                        <div class="small text-muted mb-3">
+                                            {{ event.event_date }} · {{ event.start_time }} · {{ event.location }}
+                                        </div>
+                                        <a href="{{ url_for('event_leader_volunteers', event_id=event.event_id) }}" 
+                                           class="btn btn-sm btn-outline-success">View Volunteers →</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No upcoming events.</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Past Events Card -->
+        {% if my_events %}
+            {% set past = my_events|selectattr('event_date', '<', today)|list %}
+            {% if past %}
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">Past Events</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for event in past %}
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100 border-0 shadow-sm bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-title fw-bold">{{ event.event_name }}</h6>
+                                    <div class="small text-muted mb-3">
+                                        {{ event.event_date }} · {{ event.start_time }} · {{ event.location }}
+                                    </div>
+                                    <a href="{{ url_for('event_leader_report', event_id=event.event_id) }}" 
+                                       class="btn btn-sm btn-outline-info">View Report →</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+        
+        {% if not my_events %}
+            <div class="text-center py-5">
+                <p class="text-muted mb-3">You haven't created any events yet.</p>
+                <a href="{{ url_for('event_leader_create_event') }}" class="btn btn-eco-green">Create Your First Event</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Platform Reports{% endblock %}
+
+{% set active_page = 'reports' %}
+
+{% block content %}
+<h2 class="mb-4">Platform Analytics</h2>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm bg-light">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Total Users</h6>
+                <h2 class="mb-0">{{ total_volunteers + total_leaders + total_admins }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm bg-light">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Total Events</h6>
+                <h2 class="mb-0">{{ total_events }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm bg-light">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Registrations</h6>
+                <h2 class="mb-0">{{ total_registrations }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm bg-light">
+            <div class="card-body text-center">
+                <h6 class="text-muted">Feedback</h6>
+                <h2 class="mb-0">{{ total_feedback }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-eco-green text-white">
+                <h5 class="mb-0">📈 Monthly Event Trends</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th class="text-end">Events</th>
+                            <th class="text-end">Registrations</th>
+                            <th class="text-end">Attendance Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for month in monthly_stats %}
+                        <tr>
+                            <td>{{ month.month }}</td>
+                            <td class="text-end">{{ month.events }}</td>
+                            <td class="text-end">{{ month.registrations }}</td>
+                            <td class="text-end">
+                                <span class="badge bg-success">{{ month.attendance_rate }}%</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-eco-green text-white">
+                <h5 class="mb-0">⭐ Top Rated Events</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th class="text-end">Rating</th>
+                            <th class="text-end">Reviews</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in top_rated_events %}
+                        <tr>
+                            <td>{{ event.event_name }}</td>
+                            <td class="text-end">
+                                <span class="text-warning">⭐</span> {{ event.avg_rating }}/5
+                            </td>
+                            <td class="text-end">{{ event.review_count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-eco-green text-white">
+                <h5 class="mb-0">📊 Events by Type</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <tbody>
+                        {% for type in events_by_type %}
+                        <tr>
+                            <td>{{ type.event_type or 'Other' }}</td>
+                            <td class="text-end">{{ type.count }}</td>
+                            <td class="text-end">
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar bg-success" 
+                                         style="width: {{ (type.count / total_events * 100)|round }}%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-eco-green text-white">
+                <h5 class="mb-0">👤 Top Event Leaders</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Leader</th>
+                            <th class="text-end">Events</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for leader in top_leaders %}
+                        <tr>
+                            <td>{{ leader.full_name }}</td>
+                            <td class="text-end">{{ leader.event_count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-eco-green text-white">
+                <h5 class="mb-0">🌟 Most Active Volunteers</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Volunteer</th>
+                            <th class="text-end">Events</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for volunteer in top_volunteers %}
+                        <tr>
+                            <td>{{ volunteer.full_name }}</td>
+                            <td class="text-end">{{ volunteer.event_count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

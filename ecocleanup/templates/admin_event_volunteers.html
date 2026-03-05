@@ -1,0 +1,69 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Event Volunteers{% endblock %}
+
+{% set active_page = 'events' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>{{ event.event_name }} - Volunteers</h2>
+    <a href="{{ url_for('admin_events') }}" class="btn btn-outline-secondary">Back to Events</a>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">Event Details</h5>
+    </div>
+    <div class="card-body">
+        <p><strong>Date:</strong> {{ event.event_date }} at {{ event.start_time }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p><strong>Event Leader:</strong> {{ event.leader_name }}</p>
+        <p><strong>Total Registered:</strong> {{ volunteers|length }}</p>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h5 class="mb-0">Registered Volunteers</h5>
+    </div>
+    <div class="card-body">
+        {% if volunteers %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Registered On</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vol in volunteers %}
+                    <tr>
+                        <td>{{ vol.full_name }}</td>
+                        <td>{{ vol.username }}</td>
+                        <td>{{ vol.email }}</td>
+                        <td>{{ vol.contact_number }}</td>
+                        <td>{{ vol.registered_at }}</td>
+                        <td>
+                            <span class="badge 
+                                {% if vol.attendance == 'attended' %}bg-success
+                                {% elif vol.attendance == 'no-show' %}bg-danger
+                                {% else %}bg-secondary{% endif %}">
+                                {{ vol.attendance or 'registered' }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted mb-0">No volunteers registered for this event.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

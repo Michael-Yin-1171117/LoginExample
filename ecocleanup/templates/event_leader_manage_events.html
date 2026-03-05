@@ -1,0 +1,161 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Manage Events{% endblock %}
+
+{% set active_page = 'manage' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>My Events</h2>
+    <a href="{{ url_for('event_leader_create_event') }}" class="btn btn-eco-green">Create New Event</a>
+</div>
+
+<!-- Filter Section -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-light">
+        <h5 class="mb-0">Filter Events</h5>
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" name="date" value="{{ date_filter }}">
+            </div>
+            <div class="col-md-3">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" name="location" 
+                       placeholder="Enter location..." value="{{ location_filter }}">
+            </div>
+            <div class="col-md-2">
+                <label for="type" class="form-label">Event Type</label>
+                <select class="form-control" id="type" name="type">
+                    <option value="">All Types</option>
+                    {% for type in event_types %}
+                    <option value="{{ type.event_type }}" {{ 'selected' if type_filter == type.event_type else '' }}>
+                        {{ type.event_type }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-control" id="status" name="status">
+                    <option value="">All</option>
+                    <option value="upcoming" {{ 'selected' if status_filter == 'upcoming' else '' }}>Upcoming</option>
+                    <option value="past" {{ 'selected' if status_filter == 'past' else '' }}>Past</option>
+                </select>
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-eco-green me-2">Apply Filters</button>
+                <a href="{{ url_for('event_leader_manage_events') }}" class="btn btn-outline-secondary">Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if request.args.get('updated') %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    Event updated successfully!
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endif %}
+
+{% if request.args.get('cancelled') %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    Event cancelled successfully.
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endif %}
+
+{% if request.args.get('recorded') %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    Event outcomes recorded successfully!
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endif %}
+
+<div class="row">
+    {% if events %}
+        {% for event in events %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header 
+                     {% if event.event_date|string < today|string %}bg-secondary text-white
+                     {% else %}bg-eco-green text-white{% endif %}">
+                    <h5 class="mb-0">{{ event.event_name }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <p><strong>Date:</strong> {{ event.event_date }}</p>
+                            <p><strong>Time:</strong> {{ event.start_time }}</p>
+                            <p><strong>Location:</strong> {{ event.location }}</p>
+                            <p><strong>Registered:</strong> {{ event.registered_count }} volunteers</p>
+                            <p><strong>Attended:</strong> {{ event.attended_count }} volunteers</p>
+                        </div>
+                        
+                        <!-- Display outcomes on the right side for past events -->
+                        {% if event.event_date|string < today|string and (event.bags_count or event.recyclables_count) %}
+                        <div class="col-4 border-start">
+                            <h6 class="fw-bold mb-2">Event Outcomes</h6>
+                            {% if event.bags_count %}
+                            <div class="mb-2">
+                                <span class="badge bg-success rounded-pill p-2">{{ event.bags_count }}</span>
+                                <span class="small ms-1">Bags</span>
+                            </div>
+                            {% endif %}
+                            {% if event.recyclables_count %}
+                            <div>
+                                <span class="badge bg-info rounded-pill p-2">{{ event.recyclables_count }}</span>
+                                <span class="small ms-1">Recyclables</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <hr>
+                    
+                    <!-- Button group with equal width for all buttons -->
+                    <div class="d-flex gap-2" role="group">
+                        <!-- View button - always visible -->
+                        <a href="{{ url_for('event_leader_volunteers', event_id=event.event_id) }}" 
+                           class="btn btn-outline-primary btn-sm flex-fill">View</a>
+                        
+                        {% if event.event_date|string >= today|string %}
+                            <!-- Upcoming event buttons - all 4 buttons with equal width -->
+                            <a href="{{ url_for('event_leader_edit_event', event_id=event.event_id) }}" 
+                               class="btn btn-outline-secondary btn-sm flex-fill">Edit</a>
+                            
+                            <form action="{{ url_for('event_leader_cancel_event', event_id=event.event_id) }}" 
+                                  method="post" class="flex-fill">
+                                <button type="submit" class="btn btn-outline-danger btn-sm w-100" 
+                                        onclick="return confirm('Are you sure you want to cancel this event?');">
+                                    Cancel
+                                </button>
+                            </form>
+                            
+                            <a href="{{ url_for('event_leader_track_attendance', event_id=event.event_id) }}" 
+                               class="btn btn-outline-success btn-sm flex-fill">Track</a>
+                        {% else %}
+                            <!-- Past event buttons - 3 buttons with equal width -->
+                            <a href="{{ url_for('event_leader_report', event_id=event.event_id) }}" 
+                               class="btn btn-outline-info btn-sm flex-fill">Report</a>
+                            <a href="{{ url_for('event_leader_record_outcomes', event_id=event.event_id) }}" 
+                               class="btn btn-outline-warning btn-sm flex-fill">Outcomes</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                You haven't created any events yet.
+                <a href="{{ url_for('event_leader_create_event') }}" class="alert-link">Create your first event</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

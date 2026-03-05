@@ -1,0 +1,52 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Record Outcomes{% endblock %}
+
+{% set active_page = 'manage' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-eco-green text-white">
+                <h4 class="mb-0">Record Event Outcomes</h4>
+            </div>
+            <div class="card-body">
+                <h5>{{ event.event_name }}</h5>
+                <p class="text-muted">{{ event.event_date }}</p>
+                
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="attendees" class="form-label">Number of Attendees</label>
+                        <input type="number" class="form-control" id="attendees" name="attendees" 
+                               min="0" value="{{ outcomes.num_attendees if outcomes else event.attended_count }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="bags" class="form-label">Rubbish Collected (bags)</label>
+                        <input type="number" class="form-control" id="bags" name="bags" 
+                               min="0" value="{{ outcomes.bags_collected if outcomes and outcomes.bags_collected else 0 }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="recyclables" class="form-label">Recyclables Sorted (bags)</label>
+                        <input type="number" class="form-control" id="recyclables" name="recyclables" 
+                               min="0" value="{{ outcomes.recyclables_sorted if outcomes and outcomes.recyclables_sorted else 0 }}" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="other" class="form-label">Other Achievements</label>
+                        <textarea class="form-control" id="other" name="other" rows="2">{{ outcomes.other_achievements if outcomes else '' }}</textarea>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-eco-green">Save Outcomes</button>
+                        <a href="{{ url_for('event_leader_manage_events') }}" 
+                           class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

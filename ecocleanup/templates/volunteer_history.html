@@ -1,0 +1,63 @@
+{% extends 'userbase.html' %}
+
+{% block title %}My History{% endblock %}
+
+{% set active_page = 'history' %}
+
+{% block content %}
+<h2>My Participation History</h2>
+
+<div class="row">
+    {% if history %}
+        {% for event in history %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <!-- Card header always green -->
+                <div class="card-header bg-eco-green text-white">
+                    <h5 class="mb-0">{{ event.event_name }}</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Date:</strong> {{ event.event_date }}</p>
+                    <p><strong>Location:</strong> {{ event.location }}</p>
+                    <p><strong>Status:</strong> 
+                        <span class="badge 
+                            {% if event.attendance == 'attended' %}bg-success
+                            {% elif event.attendance == 'no-show' %}bg-danger
+                            {% else %}bg-secondary{% endif %}">
+                            {{ event.attendance|title or 'Registered' }}
+                        </span>
+                    </p>
+                    
+                    <!-- Display existing feedback if available -->
+                    {% if event.rating %}
+                    <hr>
+                    <h6>Your Feedback:</h6>
+                    <p><strong>Rating:</strong> {{ event.rating }}/5</p>
+                    {% if event.comments %}
+                    <p><strong>Comments:</strong> {{ event.comments }}</p>
+                    {% endif %}
+                    <p class="small text-muted">Submitted: {{ event.submitted_at }}</p>
+                    
+                    <!-- Show submit button if attended AND no feedback yet -->
+                    {% elif event.attendance == 'attended' %}
+                    <hr>
+                    <div class="alert alert-info">
+                        <p class="mb-2">You haven't submitted feedback for this event yet.</p>
+                        <a href="{{ url_for('volunteer_feedback', event_id=event.event_id) }}" 
+                           class="btn btn-eco-green btn-sm">Submit Feedback</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                You haven't participated in any past events yet.
+                <a href="{{ url_for('volunteer_events') }}" class="alert-link">Browse upcoming events</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

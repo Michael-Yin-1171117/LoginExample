@@ -15,16 +15,17 @@ app = Flask(__name__)
 # For the purpose of your assignments, you DON'T need to use any of those more
 # advanced and secure methods: it's fine to store your secret key in your
 # source code like we do here.
-app.secret_key = 'Example Secret Key (CHANGE THIS TO YOUR OWN SECRET KEY!)'
-
+# app.secret_key = 'Example Secret Key (CHANGE THIS TO YOUR OWN SECRET KEY!)'
+app.secret_key ="secretkey123"
 # Set up database connection.
-from loginapp import connect
-from loginapp import db
+from ecocleanup import connect
+from ecocleanup import db
 db.init_db(app, connect.dbuser, connect.dbpass, connect.dbhost, connect.dbname,
            connect.dbport)
 
 # Include all modules that define our Flask route-handling functions.
-from loginapp import user
-from loginapp import customer
-from loginapp import staff
-from loginapp import admin
+from ecocleanup import user
+from ecocleanup import volunteer
+from ecocleanup import event_leader
+from ecocleanup import admin
+#from loginapp import events

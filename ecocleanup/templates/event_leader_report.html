@@ -1,0 +1,96 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Event Report{% endblock %}
+
+{% set active_page = 'manage' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow-sm">
+            <div class="card-header bg-eco-green text-white">
+                <h4 class="mb-0">Event Report: {{ report.event_name }}</h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5>Event Details</h5>
+                        <table class="table">
+                            <tr>
+                                <th>Date:</th>
+                                <td>{{ report.event_date }}</td>
+                            </tr>
+                            <tr>
+                                <th>Time:</th>
+                                <td>{{ report.start_time }}</td>
+                            </tr>
+                            <tr>
+                                <th>Location:</th>
+                                <td>{{ report.location }}</td>
+                            </tr>
+                            <tr>
+                                <th>Duration:</th>
+                                <td>{{ report.duration }} hours</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Registration Summary</h5>
+                        <table class="table">
+                            <tr>
+                                <th>Total Registered:</th>
+                                <td>{{ report.total_registered }}</td>
+                            </tr>
+                            <tr>
+                                <th>Attended:</th>
+                                <td>{{ report.actual_attended }}</td>
+                            </tr>
+                            <tr>
+                                <th>No Show:</th>
+                                <td>{{ report.no_show }}</td>
+                            </tr>
+                            <tr>
+                                <th>Attendance Rate:</th>
+                                <td>
+                                    {% if report.total_registered > 0 %}
+                                        {{ (report.actual_attended / report.total_registered * 100)|round }}%
+                                    {% else %}
+                                        0%
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h5>Feedback Summary</h5>
+                        <table class="table">
+                            <tr>
+                                <th>Total Feedback:</th>
+                                <td>{{ report.feedback_count }}</td>
+                            </tr>
+                            <tr>
+                                <th>Average Rating:</th>
+                                <td>
+                                    {% if report.avg_rating %}
+                                        {{ report.avg_rating }}/5
+                                    {% else %}
+                                        No ratings yet
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <a href="{{ url_for('event_leader_manage_events') }}" class="btn btn-eco-green">Back to Events</a>
+                    <button onclick="window.print()" class="btn btn-outline-secondary">Print Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

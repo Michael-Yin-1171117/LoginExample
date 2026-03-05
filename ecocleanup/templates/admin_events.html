@@ -1,0 +1,105 @@
+{% extends 'userbase.html' %}
+
+{% block title %}All Events{% endblock %}
+
+{% set active_page = 'events' %}
+
+{% block content %}
+<h2 class="mb-4">All Events</h2>
+
+<!-- Filter Section -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-light">
+        <h5 class="mb-0">Filter Events</h5>
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" name="date" value="{{ date_filter }}">
+            </div>
+            <div class="col-md-3">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" name="location" 
+                       placeholder="Enter location..." value="{{ location_filter }}">
+            </div>
+            <div class="col-md-2">
+                <label for="type" class="form-label">Event Type</label>
+                <select class="form-control" id="type" name="type">
+                    <option value="">All Types</option>
+                    {% for type in event_types %}
+                    <option value="{{ type.event_type }}" {{ 'selected' if type_filter == type.event_type else '' }}>
+                        {{ type.event_type }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="leader" class="form-label">Event Leader</label>
+                <select class="form-control" id="leader" name="leader">
+                    <option value="">All Leaders</option>
+                    {% for leader in leaders %}
+                    <option value="{{ leader.username }}" {{ 'selected' if leader_filter == leader.username else '' }}>
+                        {{ leader.username }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-eco-green me-2">Apply Filters</button>
+                <a href="{{ url_for('admin_events') }}" class="btn btn-outline-secondary">Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Events Table -->
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Event Name</th>
+                <th>Leader</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Registered</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if events %}
+                {% for event in events %}
+                <tr>
+                    <td>{{ event.event_id }}</td>
+                    <td>{{ event.event_name }}</td>
+                    <td>{{ event.leader_name }}</td>
+                    <td>{{ event.event_date }}</td>
+                    <td>{{ event.location }}</td>
+                    <td>{{ event.event_type }}</td>
+                    <td>{{ event.registered_count }}</td>
+                    <td>
+                        <a href="{{ url_for('admin_event_volunteers', event_id=event.event_id) }}" 
+                        class="btn btn-sm btn-info">View Volunteers</a>
+                        <a href="{{ url_for('admin_edit_event', event_id=event.event_id) }}" 
+                        class="btn btn-sm btn-warning">Edit</a>
+                        <form action="{{ url_for('admin_delete_event', event_id=event.event_id) }}" 
+                            method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" 
+                                    onclick="return confirm('Are you sure you want to delete this event?');">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="8" class="text-center text-muted">No events found matching your criteria.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

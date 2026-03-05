@@ -170,3 +170,6 @@ Once we've generated a password hash and stored it in our database, we can then
 call the `check_password_hash(pw_hash, password)` function to check a whether a
 `password` supplied during login matches the `pw_hash` stored in our database
 for that particular user account.
+
+
+$2b$12$hHoMljE2DCSWMSTggd7dbO7Rt91K.lS0uA9LrzQZGEgM47gkaFWqm

@@ -1,0 +1,79 @@
+{% extends 'userbase.html' %}
+
+{% block title %}User Details{% endblock %}
+
+{% set active_page = 'users' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        {% if request.args.get('updated') %}
+        <div class="alert alert-success">User status updated successfully!</div>
+        {% endif %}
+        
+        <div class="card shadow-sm">
+            <div class="card-header bg-eco-green text-white">
+                <h4 class="mb-0">User Details: {{ user.full_name }}</h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Username:</div>
+                    <div class="col-md-9">{{ user.username }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Email:</div>
+                    <div class="col-md-9">{{ user.email }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Full Name:</div>
+                    <div class="col-md-9">{{ user.full_name }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Role:</div>
+                    <div class="col-md-9">{{ user.role|replace('_', ' ')|title }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Status:</div>
+                    <div class="col-md-9">
+                        <span class="badge {% if user.status == 'active' %}bg-success{% else %}bg-danger{% endif %}">
+                            {{ user.status|title }}
+                        </span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Address:</div>
+                    <div class="col-md-9">{{ user.home_address }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 fw-bold">Contact:</div>
+                    <div class="col-md-9">{{ user.contact_number }}</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-3 fw-bold">Interests:</div>
+                    <div class="col-md-9">{{ user.environmental_interests or 'Not specified' }}</div>
+                </div>
+                
+                <hr>
+                
+                <h5 class="mb-3">Change Status</h5>
+                <form action="{{ url_for('admin_change_user_status', user_id=user.user_id) }}" 
+                      method="post" class="row g-3">
+                    <div class="col-auto">
+                        <select name="status" class="form-select">
+                            <option value="active" {% if user.status == 'active' %}selected{% endif %}>Active</option>
+                            <option value="inactive" {% if user.status == 'inactive' %}selected{% endif %}>Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-eco-green">Update Status</button>
+                    </div>
+                </form>
+                
+                <div class="mt-4">
+                    <a href="{{ url_for('admin_users') }}" class="btn btn-outline-secondary">Back to Users</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Volunteer Feedback{% endblock %}
+
+{% set active_page = 'feedback' %}
+
+{% block content %}
+<h2 class="mb-4">Volunteer Feedback</h2>
+
+<!-- Filter Section -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-light">
+        <h5 class="mb-0">Filter Feedback</h5>
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <label for="event" class="form-label">Event</label>
+                <select class="form-control" id="event" name="event">
+                    <option value="">All Events</option>
+                    {% for event in events %}
+                    <option value="{{ event.event_id }}" {{ 'selected' if request.args.get('event')|int == event.event_id else '' }}>
+                        {{ event.event_name }} ({{ event.event_date }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="rating" class="form-label">Rating</label>
+                <select class="form-control" id="rating" name="rating">
+                    <option value="">All Ratings</option>
+                    <option value="5" {{ 'selected' if request.args.get('rating') == '5' else '' }}>5 Stars</option>
+                    <option value="4" {{ 'selected' if request.args.get('rating') == '4' else '' }}>4 Stars</option>
+                    <option value="3" {{ 'selected' if request.args.get('rating') == '3' else '' }}>3 Stars</option>
+                    <option value="2" {{ 'selected' if request.args.get('rating') == '2' else '' }}>2 Stars</option>
+                    <option value="1" {{ 'selected' if request.args.get('rating') == '1' else '' }}>1 Star</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-eco-green me-2">Apply Filters</button>
+                <a href="{{ url_for('event_leader_feedback') }}" class="btn btn-outline-secondary">Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Summary Stats -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card bg-light">
+            <div class="card-body text-center">
+                <h3>{{ feedbacks|length }}</h3>
+                <small class="text-muted">Total Feedback</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light">
+            <div class="card-body text-center">
+                <h3>{{ avg_rating }}</h3>
+                <small class="text-muted">Average Rating</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light">
+            <div class="card-body text-center">
+                <h3>{{ events_with_feedback }}</h3>
+                <small class="text-muted">Events with Feedback</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Group feedback by event -->
+{% if feedbacks %}
+    {% set grouped = {} %}
+    {% for fb in feedbacks %}
+        {% if fb.event_name not in grouped %}
+            {% set _ = grouped.update({fb.event_name: [fb]}) %}
+        {% else %}
+            {% set _ = grouped[fb.event_name].append(fb) %}
+        {% endif %}
+    {% endfor %}
+
+    {% for event_name, event_feedbacks in grouped.items() %}
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-eco-green text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ event_name }}</h5>
+                <span class="badge bg-light text-dark">{{ event_feedbacks|length }} feedback{{ 's' if event_feedbacks|length > 1 else '' }}</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% for fb in event_feedbacks %}
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="mb-0 fw-bold">{{ fb.full_name }} ({{ fb.username }})</h6>
+                                <span class="badge bg-warning text-dark">{{ fb.rating }}/5</span>
+                            </div>
+                            <div class="mb-2">
+                                {% for i in range(fb.rating) %}⭐{% endfor %}
+                            </div>
+                            {% if fb.comments %}
+                            <p class="mb-2">"{{ fb.comments }}"</p>
+                            {% endif %}
+                            <small class="text-muted">Submitted: {{ fb.submitted_at }}</small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="alert alert-info">
+        No feedback found matching your criteria.
+    </div>
+{% endif %}
+{% endblock %}

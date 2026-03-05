@@ -1,0 +1,87 @@
+{% extends 'userbase.html' %}
+
+{% block title %}Edit Event{% endblock %}
+
+{% set active_page = 'manage' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-eco-green text-white">
+                <h4 class="mb-0">Edit Event: {{ event.event_name }}</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="event_name" class="form-label">Event Name *</label>
+                        <input type="text" class="form-control" id="event_name" name="event_name" 
+                               value="{{ event.event_name }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location *</label>
+                        <input type="text" class="form-control" id="location" name="location" 
+                               value="{{ event.location }}" required>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="event_date" class="form-label">Date *</label>
+                            <input type="date" class="form-control" id="event_date" name="event_date" 
+                                   value="{{ event.event_date }}"  required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="start_time" class="form-label">Start Time *</label>
+                            <input type="time" class="form-control" id="start_time" name="start_time" 
+                                   value="{{ event.start_time }}" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="duration" class="form-label">Duration (hours) *</label>
+                            <input type="number" class="form-control" id="duration" name="duration" 
+                                min="1" max="8" step="1" value="{{ event.duration or '2' }}" required>
+                            <small class="text-muted">1-8 hours</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="event_type" class="form-label">Event Type *</label>
+                            <select class="form-control" id="event_type" name="event_type" required>
+                                <option value="">Select type...</option>
+                                <option value="Cleanup" {{ 'selected' if event.event_type == 'Cleanup' else '' }}>Cleanup</option>
+                                <option value="Planting" {{ 'selected' if event.event_type == 'Planting' else '' }}>Planting</option>
+                                <option value="Restoration" {{ 'selected' if event.event_type == 'Restoration' else '' }}>Restoration</option>
+                                <option value="Monitoring" {{ 'selected' if event.event_type == 'Monitoring' else '' }}>Monitoring</option>
+                                <option value="Workshop" {{ 'selected' if event.event_type == 'Workshop' else '' }}>Workshop</option>
+                                <option value="Education" {{ 'selected' if event.event_type == 'Education' else '' }}>Education</option>
+                                <option value="Community" {{ 'selected' if event.event_type == 'Community' else '' }}>Community</option>
+                                <option value="Survey" {{ 'selected' if event.event_type == 'Survey' else '' }}>Survey</option>
+                                <option value="Research" {{ 'selected' if event.event_type == 'Research' else '' }}>Research</option>
+                                <option value="Maintenance" {{ 'selected' if event.event_type == 'Maintenance' else '' }}>Maintenance</option>
+                                <option value="Conservation" {{ 'selected' if event.event_type == 'Conservation' else '' }}>Conservation</option>
+                                <option value="Awareness" {{ 'selected' if event.event_type == 'Awareness' else '' }}>Awareness</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="supplies" class="form-label">Supplies Provided</label>
+                        <textarea class="form-control" id="supplies" name="supplies" rows="2">{{ event.supplies or '' }}</textarea>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="safety_instructions" class="form-label">Safety Instructions</label>
+                        <textarea class="form-control" id="safety_instructions" name="safety_instructions" rows="3">{{ event.safety_instructions or '' }}</textarea>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-eco-green">Update Event</button>
+                        <a href="{{ url_for('event_leader_manage_events') }}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
