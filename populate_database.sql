@@ -8,43 +8,45 @@
 INSERT INTO users (username,password_hash,full_name,email,contact_number,home_address,environmental_interests,role)
 VALUES
 -- ADMINS
-('admin_julia','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Julia Thompson','julia.thompson@email.com','021-445-872','12 Queen Street, Auckland','policy, sustainability','admin'),
-('admin_michael','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Michael Chen','michael.chen@email.com','022-118-993','8 Albert Road, Auckland','climate action','admin'),
+('admin_julia','$2b$12$pRHfVJ751Xj3wPbxjOLDHOOyFj9MrSBCGHkKqRTRXHbvhlmHxc2Ym','Julia Thompson','julia.thompson@email.com','021-445-872','12 Queen Street, Auckland','policy, sustainability','admin'),
+('admin_michael','$2b$12$w.ClsNbYZJvMQ1Agzcez5u.pklhzSSHB4tRXJmpYeP8G1ANZdTLge','Michael Chen','michael.chen@email.com','022-118-993','8 Albert Road, Auckland','climate action','admin'),
 
 -- EVENT LEADERS
-('staff_sophie','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Sophie Williams','sophie.w@email.com','021-778-912','45 Lake Rd, Takapuna','marine conservation','event_leader'),
-('staff_liam','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Liam Patel','liam.p@email.com','027-661-204','18 King St, Hamilton','tree planting','event_leader'),
-('staff_aria','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Aria Ngatai','aria.n@email.com','021-901-772','9 Moana Ave, Tauranga','wildlife protection','event_leader'),
-('staff_noah','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Noah Robinson','noah.r@email.com','022-557-113','76 Hillcrest Rd, Rotorua','river cleanup','event_leader'),
-('staff_emma','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Emma Garcia','emma.g@email.com','020-887-665','33 Park Lane, Wellington','community gardens','event_leader'),
+('staff_sophie','$2b$12$Ek7Nc19ibB5lzzThtEVuROuxVIuhQSYxJquhfmqDU8xaLp6hOokDS','Sophie Williams','sophie.w@email.com','021-778-912','45 Lake Rd, Takapuna','marine conservation','event_leader'),
+('staff_liam','$2b$12$nEh0OgwMKtKRa34lbq1ArO4admt4amdKwwUr9fLso5vw0H3poBoSC','Liam Patel','liam.p@email.com','027-661-204','18 King St, Hamilton','tree planting','event_leader'),
+('staff_aria','$2b$12$gK3MHYYt2QFGZHXx.azfaOltBBY8qdEBZhRRY6a.2SddVbXoDA94u','Aria Ngatai','aria.n@email.com','021-901-772','9 Moana Ave, Tauranga','wildlife protection','event_leader'),
+('staff_noah','$2b$12$HRZSs4s0FFFKlWwhbP/VPOd3HK4MfiNSR21h7B4GUJnFiq22xkB6u','Noah Robinson','noah.r@email.com','022-557-113','76 Hillcrest Rd, Rotorua','river cleanup','event_leader'),
+('staff_emma','$2b$12$bfAV/38Us3pXKtndM8TtJeLeLVxq2eetkeNUbVPeicCs7ts4BHdWy','Emma Garcia','emma.g@email.com','020-887-665','33 Park Lane, Wellington','community gardens','event_leader'),
 
 -- VOLUNTEERS (20)
-('oliver_smith','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Oliver Smith','oliver.s@email.com','021-882-001','14 Green Rd, Auckland','recycling','volunteer'),
-('ava_jones','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Ava Jones','ava.j@email.com','021-882-002','88 Coast Rd, Auckland','oceans','volunteer'),
-('ethan_lee','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Ethan Lee','ethan.l@email.com','021-882-003','9 River St, Hamilton','forests','volunteer'),
-('mia_khan','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Mia Khan','mia.k@email.com','021-882-004','17 Sunset Blvd, Auckland','wildlife','volunteer'),
-('lucas_wilson','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Lucas Wilson','lucas.w@email.com','021-882-005','21 Palm Dr, Tauranga','parks','volunteer'),
-('isabella_clark','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Isabella Clark','isabella.c@email.com','021-882-006','55 Ridge Rd, Napier','sustainability','volunteer'),
-('jack_white','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Jack White','jack.w@email.com','021-882-007','67 Valley Rd, Dunedin','eco education','volunteer'),
-('amelia_hall','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Amelia Hall','amelia.h@email.com','021-882-008','3 Ocean View, Nelson','coastal care','volunteer'),
-('henry_adams','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Henry Adams','henry.a@email.com','021-882-009','29 Beach Rd, Auckland','marine life','volunteer'),
-('charlotte_brown','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Charlotte Brown','charlotte.b@email.com','021-882-010','11 Hill Rd, Hamilton','trees','volunteer'),
-('daniel_scott','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Daniel Scott','daniel.s@email.com','021-882-011','42 Park Ave, Wellington','river cleanup','volunteer'),
-('harper_turner','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Harper Turner','harper.t@email.com','021-882-012','90 Forest Ln, Rotorua','forests','volunteer'),
-('sebastian_evans','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Sebastian Evans','sebastian.e@email.com','021-882-013','72 Lake Rd, Taupo','wildlife','volunteer'),
-('ella_perez','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Ella Perez','ella.p@email.com','021-882-014','5 Greenway, Christchurch','climate','volunteer'),
-('logan_edwards','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Logan Edwards','logan.e@email.com','021-882-015','8 Riverbank, Gisborne','waterways','volunteer'),
-('grace_collins','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Grace Collins','grace.c@email.com','021-882-016','101 Sunrise Rd, Auckland','urban gardens','volunteer'),
-('leo_stewart','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Leo Stewart','leo.s@email.com','021-882-017','44 Hilltop Dr, Hamilton','recycling','volunteer'),
-('zoe_morris','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Zoe Morris','zoe.m@email.com','021-882-018','13 Coastal Rd, Auckland','ocean plastics','volunteer'),
-('owen_rogers','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Owen Rogers','owen.r@email.com','021-882-019','25 Valley St, Wellington','ecosystems','volunteer'),
-('lily_cooper','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Lily Cooper','lily.c@email.com','021-882-020','6 Garden Way, Auckland','gardening','volunteer');
+('oliver_smith','$2b$12$fxiqNH85sh6U2Qes1D3lr.f4q/yRCiTd9Qa9nnt9i.Ts9hBRy05b2','Oliver Smith','oliver.s@email.com','021-882-001','14 Green Rd, Auckland','recycling','volunteer'),
+('ava_jones','$2b$12$taX0V4y2Z1i9WQIPc1ZGnuox2DH/7aeCEv0Mx1O2jeHnLv5upUcSq','Ava Jones','ava.j@email.com','021-882-002','88 Coast Rd, Auckland','oceans','volunteer'),
+('ethan_lee','$2b$12$yGvd1vHcTlM6WiXFMk9t7.wXZ3xop9WiJxtaWxAAWeYsiz3hmKwLu','Ethan Lee','ethan.l@email.com','021-882-003','9 River St, Hamilton','forests','volunteer'),
+('mia_khan','$2b$12$MeNLy6ShlxGWepLTfg6wDuXm84D5kogakMpSn8IuAxArwdbmtoBtO','Mia Khan','mia.k@email.com','021-882-004','17 Sunset Blvd, Auckland','wildlife','volunteer'),
+('lucas_wilson','$2b$12$STVJO9kny6Ns4Ht1g/zzLe1bhWDkxSoSGkp2mWzUltCaFE420irdi','Lucas Wilson','lucas.w@email.com','021-882-005','21 Palm Dr, Tauranga','parks','volunteer'),
+('isabella_clark','$2b$12$BAn9QoscwSDLnTuhpKwMj.bKmqxOLlvOKaJdVwVPiOQ6d1HFIZADe','Isabella Clark','isabella.c@email.com','021-882-006','55 Ridge Rd, Napier','sustainability','volunteer'),
+('jack_white','$2b$12$R.bbf8BPbQ8nYXZCInF8tuEC9LalFflhy9tw/XcrpFk5oiy8gshNS','Jack White','jack.w@email.com','021-882-007','67 Valley Rd, Dunedin','eco education','volunteer'),
+('amelia_hall','$2b$12$JDATWzvGiEdcrDUnP5kriu6kXczs/Alkvn/MnvbLubOPqrVpMI7MW','Amelia Hall','amelia.h@email.com','021-882-008','3 Ocean View, Nelson','coastal care','volunteer'),
+('henry_adams','$2b$12$PPQrqMiC6nLJ1j.8M83V9OVcm48OPncQkpDzGXqIR2QgDDuBBuymq','Henry Adams','henry.a@email.com','021-882-009','29 Beach Rd, Auckland','marine life','volunteer'),
+('charlotte_brown','$2b$12$Kve1.8skDG0f.CR5gyxr0OyHml4eBLLgFHZlFfpzGKUHTvXrZzDT6','Charlotte Brown','charlotte.b@email.com','021-882-010','11 Hill Rd, Hamilton','trees','volunteer'),
+('daniel_scott','$2b$12$2hAQep07P6oQq9ARB.kNyOB2TQoh1U2DShTwMTQReWDzcaE5myhYm','Daniel Scott','daniel.s@email.com','021-882-011','42 Park Ave, Wellington','river cleanup','volunteer'),
+('harper_turner','$2b$12$Xbp8.n2jpLf25OK2PvfyWOU98RPEuegId.66e5dE5wJGu4ibA43LC','Harper Turner','harper.t@email.com','021-882-012','90 Forest Ln, Rotorua','forests','volunteer'),
+('sebastian_evans','$2b$12$Qpj6xvVPc.smHALM10Me0Oby.8UC.VB3zqAoJheSdBZuj1Esa9uqa','Sebastian Evans','sebastian.e@email.com','021-882-013','72 Lake Rd, Taupo','wildlife','volunteer'),
+('ella_perez','$2b$12$poW6e4847UUBnMc5I7mzgO48tS4Mv1P0KHRu4txxXtpCNNueMhzNS','Ella Perez','ella.p@email.com','021-882-014','5 Greenway, Christchurch','climate','volunteer'),
+('logan_edwards','$2b$12$vnnxYLWfE/XsScmpyzJgiu65x1kP7/Lb6RrGWIMZ91cVPGX.qR.UW','Logan Edwards','logan.e@email.com','021-882-015','8 Riverbank, Gisborne','waterways','volunteer'),
+('grace_collins','$2b$12$0g/fAfQfqTDZYVQAzO.BmuD1FALA4nW6huVjNwO0r//G0DeWzyJPO','Grace Collins','grace.c@email.com','021-882-016','101 Sunrise Rd, Auckland','urban gardens','volunteer'),
+('leo_stewart','$2b$12$9EJuQDOUtq//C6QdTQrCXuy5UdAiF9wHp1Lpd0WudO460peYrNgmu','Leo Stewart','leo.s@email.com','021-882-017','44 Hilltop Dr, Hamilton','recycling','volunteer'),
+('zoe_morris','$2b$12$3w1O5fnPGAZ/9jXGo8tgXeVZ9KMDhgvnlRet8bWN3YGuVQmMOVw3y','Zoe Morris','zoe.m@email.com','021-882-018','13 Coastal Rd, Auckland','ocean plastics','volunteer'),
+('owen_rogers','$2b$12$7VL/PqLVtU.pDquYv5oeou2g/.JYALmPwzvfsq5QoQ91H.Zkj.uVa','Owen Rogers','owen.r@email.com','021-882-019','25 Valley St, Wellington','ecosystems','volunteer'),
+('lily_cooper','$2b$12$0QdK5i4YnTiKppGS9ILAXuJB2Scve.lVy6D3i1WBBIqJxhz78wHJe','Lily Cooper','lily.c@email.com','021-882-020','6 Garden Way, Auckland','gardening','volunteer');
 
 
 --ALTER SEQUENCE events_event_id_seq RESTART WITH 1;
 --ALTER SEQUENCE eventregistrations_registration_id_seq RESTART WITH 1;
 --ALTER SEQUENCE feedback_feedback_id_seq RESTART WITH 1;
 --ALTER SEQUENCE eventoutcomes_outcome_id_seq RESTART WITH 1;
+--ALTER SEQUENCE users_user_id_seq RESTART WITH 1;
+
 
 INSERT INTO events (event_name, event_leader_id, location, event_type, event_date, start_time, end_time, duration, description, supplies, safety_instructions)
 VALUES

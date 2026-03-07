@@ -62,12 +62,12 @@ The database follows the ERD provided in the assignment specification, with the 
 
 | Role | Username | Password |
 |-----|-----|-----|
-| Volunteer | oliver_smith | Test123/ |
-| Volunteer | ethan_lee | Test123/ |
-| Event Leader | staff_liam | Test123/ |
-| Event Leader | staff_sophie | Test123/ |
-| Admin | admin_julia | Test123/ |
-| Admin | admin_michael | Test123/ |
+| Volunteer | oliver_smith | Olivermith639/ |
+| Volunteer | ethan_lee | Ethanlee639/ |
+| Event Leader | staff_liam | Liampatel639/ |
+| Event Leader | staff_sophie | Sophiewilliams639/ |
+| Admin | admin_julia | Adminjulia639/ |
+| Admin | admin_michael | Adminmichael639/ |
 
 **Note:** All test accounts have hashed passwords stored in the database for security.
 
@@ -90,49 +90,60 @@ In accordance with COMP639 assessment guidelines, I acknowledge the use of Gener
 
 ### Tools Used
 
-ChatGPT – Primary AI assistant used throughout development
+ChatGPT – Primary AI assistant used throughout development (February 18 - March 7, 2026).
 
 ### How AI Was Used
 
-#### 1. Code Debugging & Troubleshooting
+#### 1. Code Debugging & Troubleshooting (Feb 20 ~ Mar 7, 2026)
 
 - Diagnosed database query errors
 - Resolved Flask routing issues 
 - Fixed template inheritance and variable scope issues
 - Debugged datetime parsing errors in event creation forms
 
-#### 2. Database Assistance
+#### 2. Database Assistance (Feb 19-22, 2026)
 
 - Helped create realistic user data 
 - Generated sample event descriptions with appropriate supplies and safety instructions
 - Created feedback data with varied ratings and realistic comments
 
-#### 3. UI/UX Improvements
+#### 3. UI/UX Improvements (Feb 19 ~ Mar 4, 2026)
 
 - Suggested Bootstrap classes for responsive layouts
 - Helped design consistent card layouts across user roles
 - Improved color scheme and visual hierarchy
 - Optimized button placement and sizing for different screen sizes
 
-#### 4. Report & Analytics Design
+#### 4. Report & Analytics Design (Feb 25 ~ Mar 5, 2026)
 
 - Designed admin report pages with meaningful statistics
 - Designed data presentation for event outcomes and volunteer participation
 - Designed summary cards for platform metrics
 
-#### 5. Code Optimization
+#### 5. Code Optimization (Feb 23 ~ Mar 6, 2026)
 
 - Refactored repetitive code into reusable functions
 - Improved error handling and validation messages
 
 ### Example Prompts Used
 
-- "Why am I getting 'relation does not exist' error in PostgreSQL?"
-- "How to fix 'Could not build url for endpoint' in Flask?"
 - "Generate 20 realistic volunteer names and email addresses for test data"
 - "Help me design a responsive event card layout with Bootstrap"
 - "What's the best way to structure admin analytics dashboard?"
 - "Debug this SQL query with subquery returning multiple columns"
+- "Why is my database table 'eventregistrations' not found even though I created it?"
+- "How to fix 'Could not build url for endpoint 'volunteer.volunteer_events'' error in Flask?"
+- "How do I make Bootstrap buttons the same width in a button group?"
+- "Why is my Jinja template showing 'now is undefined' error?"
+- "Why does my foreign key constraint fail when inserting data?"
+- "How to display user profile images in Flask with default fallback?"
+- "How to fix 'ValueError: invalid salt' when checking password hash?"
+- "How to structure admin dashboard with multiple statistics cards in Bootstrap?"
+- "Why is my subquery returning multiple columns error in PostgreSQL?"
+- "How to implement event registration with time conflict check?"
+- "How to filter events by date, location and type in SQL query?"
+- "How to make Flask session remember user login across pages?"
+- "How to create a responsive table that scrolls on mobile devices?"
 
 ---
 
