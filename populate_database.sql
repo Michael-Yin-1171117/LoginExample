@@ -1,16 +1,9 @@
--- INSERT INTO users (username, password_hash, email, person_role)
--- VALUES
--- 	('customer1', '$2b$12$3W3b9AnL6umkIBm6THGHB.yId0/GuR/Gi7R8ZevTwR0xi3o8rrvZa', 'customer1@example.com', 'customer'),
--- 	('customer2', '$2b$12$6KPIL1c77kZpDXzDDRuJV.ielxGNDUIJPkxl0K5JdQoZTMrcIMBym', 'customer2@example.com', 'customer'),
--- 	('staff1', '$2b$12$OKt92QtCTJmhr4wqRMYZH.6lOSBUh0oGKcvaNerR2fQe6L7.ViQ0O', 'staff1@example.com', 'staff'),
--- 	('staff2', '$2b$12$mT8QI2wKBvpoOFZsRwaLkeuS9FS4vc6sX.GJNnNMA1EKmypk6UYGa', 'staff2@example.com', 'staff'),
--- 	('admin1', '$2b$12$.jUTmK8lb/4O8O3oFuHyeerUl9qs1c.slhGzpYDMJqxGnnToGPuMO', 'admin1@example.com', 'admin');
 
-DELETE FROM feedback;        
-DELETE FROM eventregistrations;  
-DELETE FROM eventoutcomes;   
-DELETE FROM events;
-DELETE FROM users;
+--DELETE FROM feedback;        
+--DELETE FROM eventregistrations;  
+--DELETE FROM eventoutcomes;   
+--DELETE FROM events;
+--DELETE FROM users;
 
 INSERT INTO users (username,password_hash,full_name,email,contact_number,home_address,environmental_interests,role)
 VALUES
@@ -47,108 +40,11 @@ VALUES
 ('owen_rogers','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Owen Rogers','owen.r@email.com','021-882-019','25 Valley St, Wellington','ecosystems','volunteer'),
 ('lily_cooper','$2b$12$C6UzMDM.H6dfI/f/IKcEeO8sVZySUdkGFUTkOcJCIZy9FHn5Vf3.e','Lily Cooper','lily.c@email.com','021-882-020','6 Garden Way, Auckland','gardening','volunteer');
 
-INSERT INTO events (event_name,event_leader_id,location,event_type,event_date,start_time,end_time,duration,description)
-VALUES
-('Mission Bay Beach Cleanup',3,'Mission Bay, Auckland','Cleanup','2026-03-02','09:00','12:00',180,'Collect litter and plastics'),
-('Waikato River Restoration',4,'Hamilton','Restoration','2026-03-05','10:00','13:00',180,'Remove debris from riverbank'),
-('Native Tree Planting',5,'Tauranga Reserve','Planting','2026-03-07','08:30','11:30',180,'Plant native saplings'),
-('Lake Rotorua Care Day',6,'Rotorua','Cleanup','2026-03-10','09:00','12:00',180,'Lake shore cleanup'),
-('Urban Garden Build',7,'Wellington','Community','2026-03-12','11:00','15:00',240,'Build raised beds'),
-('Coastal Watch Patrol',3,'Takapuna Beach','Monitoring','2026-03-14','07:00','10:00',180,'Wildlife observation'),
-('Forest Trail Maintenance',4,'Hamilton Park','Maintenance','2026-03-15','09:00','12:00',180,'Trail clearing'),
-('Plastic Audit Workshop',7,'Wellington Hall','Workshop','2026-03-18','13:00','15:00',120,'Waste audit training'),
-('Wetland Habitat Care',5,'Tauranga Wetlands','Restoration','2026-03-20','09:00','12:00',180,'Restore habitat'),
-('School Eco Talk',7,'Wellington School','Education','2026-03-21','10:00','11:30',90,'Student awareness'),
-('Harbour Cleanup',3,'Auckland Harbour','Cleanup','2026-03-22','09:00','12:00',180,'Remove trash'),
-('Park Tree Survey',4,'Hamilton Park','Survey','2026-03-24','10:00','13:00',180,'Count native trees'),
-('Wildlife Tracking',5,'Tauranga Hills','Research','2026-03-26','06:30','10:30',240,'Track species'),
-('Community Recycling Day',7,'Wellington Square','Community','2026-03-28','09:00','14:00',300,'Sort recyclables'),
-('Riverbank Planting',6,'Rotorua River','Planting','2026-03-29','08:30','12:30',240,'Stabilize banks'),
-('Ocean Microplastic Study',3,'Auckland Coast','Research','2026-04-02','07:30','11:30',240,'Sample water'),
-('Eco Film Night',7,'Wellington Center','Awareness','2026-04-04','18:00','20:00',120,'Environmental film'),
-('Community Compost Training',7,'Wellington','Workshop','2026-04-06','10:00','12:00',120,'Teach composting'),
-('Nature Walk & Cleanup',6,'Rotorua Forest','Cleanup','2026-04-09','09:00','12:00',180,'Trail cleanup'),
-('Bird Habitat Build',5,'Tauranga Park','Conservation','2026-04-12','09:00','13:00',240,'Install nesting boxes');
 
-INSERT INTO events (event_name,event_leader_id,location,event_type,event_date,start_time,end_time,duration,description)
-VALUES
---Happened
-('Mission Bay Beach Cleanup',3,'Mission Bay, Auckland','Cleanup','2025-11-02','09:00','12:00',180,'Collect litter and plastics'),
-('Waikato River Restoration',4,'Hamilton','Restoration','2025-11-05','10:00','13:00',180,'Remove debris from riverbank'),
-('Native Tree Planting',5,'Tauranga Reserve','Planting','2025-11-07','08:30','11:30',180,'Plant native saplings'),
-('Lake Rotorua Care Day',6,'Rotorua','Cleanup','2025-11-10','09:00','12:00',180,'Lake shore cleanup'),
-('Urban Garden Build',7,'Wellington','Community','2025-11-12','11:00','15:00',240,'Build raised beds'),
-('Coastal Watch Patrol',3,'Takapuna Beach','Monitoring','2025-11-14','07:00','10:00',180,'Wildlife observation'),
-('Forest Trail Maintenance',4,'Hamilton Park','Maintenance','2025-11-15','09:00','12:00',180,'Trail clearing'),
-('Plastic Audit Workshop',7,'Wellington Hall','Workshop','2025-11-18','13:00','15:00',120,'Waste audit training'),
-('Wetland Habitat Care',5,'Tauranga Wetlands','Restoration','2025-11-20','09:00','12:00',180,'Restore habitat'),
-('School Eco Talk',7,'Wellington School','Education','2025-11-21','10:00','11:30',90,'Student awareness');
-
-INSERT INTO eventregistrations (event_id, volunteer_id, attendance, registered_at)
-VALUES
---（attended）
-(1, 1, 'attended', '2025-11-01 10:00:00'),
-(1, 2, 'attended', '2025-11-01 10:30:00'),
-(2, 3, 'attended', '2025-11-04 09:00:00'),
-(2, 4, 'no-show', '2025-11-04 09:15:00'),
-(3, 5, 'attended', '2025-11-06 08:00:00'),
-(3, 6, 'attended', '2025-11-06 08:30:00'),
-(4, 7, 'attended', '2025-11-09 14:00:00'),
-(4, 8, 'attended', '2025-11-09 14:30:00'),
-(5, 9, 'no-show', '2025-11-11 09:00:00'),
-(5, 10, 'attended', '2025-11-11 09:30:00'),
-(6, 11, 'attended', '2025-11-13 06:00:00'),
-(6, 12, 'attended', '2025-11-13 06:30:00'),
-(7, 13, 'attended', '2025-11-14 08:00:00'),
-(7, 14, 'attended', '2025-11-14 08:30:00'),
-(8, 15, 'attended', '2025-11-17 12:00:00'),
-(8, 16, 'attended', '2025-11-17 12:30:00'),
-(9, 17, 'attended', '2025-11-19 08:00:00'),
-(9, 18, 'no-show', '2025-11-19 08:30:00'),
-(10, 19, 'attended', '2025-11-20 09:00:00'),
-(10, 20, 'attended', '2025-11-20 09:30:00'),
-
--- not happen
-(11, 1, 'registered', CURRENT_TIMESTAMP),
-(11, 2, 'registered', CURRENT_TIMESTAMP),
-(12, 3, 'registered', CURRENT_TIMESTAMP),
-(13, 4, 'registered', CURRENT_TIMESTAMP),
-(14, 5, 'registered', CURRENT_TIMESTAMP);
-
-INSERT INTO feedback (event_id, volunteer_id, rating, comments, submitted_at)
-VALUES
-(1, 1, 5, 'Great event! Collected lots of plastic and met wonderful people.', '2025-11-03 14:30:00'),
-(1, 2, 4, 'Well organized, but could use more gloves next time.', '2025-11-03 15:00:00'),
-(2, 3, 5, 'Beautiful location, made a real difference to the riverbank.', '2025-11-06 11:20:00'),
-(3, 5, 5, 'Planted 20 native trees! Very rewarding experience.', '2025-11-08 13:45:00'),
-(3, 6, 4, 'Great team, hope to see the trees grow.', '2025-11-08 14:00:00'),
-(4, 7, 5, 'Lake looks much cleaner now. Thanks to all volunteers!', '2025-11-11 16:30:00'),
-(4, 8, 4, 'Good turnout, well organized.', '2025-11-11 17:00:00'),
-(5, 10, 5, 'Built 3 raised beds for the community garden. Fantastic day!', '2025-11-13 18:15:00'),
-(6, 11, 5, 'Saw native birds and removed fishing lines from beach.', '2025-11-15 12:30:00'),
-(6, 12, 4, 'Early start but worth it.', '2025-11-15 13:00:00'),
-(7, 13, 5, 'Cleared 2km of trail. Great workout!', '2025-11-16 16:45:00'),
-(7, 14, 5, 'Trail looks amazing now, will definitely come back.', '2025-11-16 17:15:00'),
-(8, 15, 5, 'Learned so much about recycling and plastic waste.', '2025-11-19 19:30:00'),
-(8, 16, 4, 'Very informative, would attend again.', '2025-11-19 20:00:00'),
-(9, 17, 5, 'Removed invasive species and planted natives. Beautiful wetland.', '2025-11-21 15:45:00'),
-(10, 19, 5, 'Kids were very engaged. Great to teach the next generation!', '2025-11-22 14:30:00'),
-(10, 20, 4, 'Good presentation, could be a bit longer next time.', '2025-11-22 15:00:00');
-
-INSERT INTO eventoutcomes (event_id,num_attendees,bags_collected,recyclables_sorted,other_achievements,recorded_by)
-VALUES
-(1,18,45,30,'Beach fully cleared',3),
-(3,15,NULL,NULL,'120 trees planted',5),
-(11,22,60,40,'Harbour area restored',3),
-(14,25,NULL,75,'Community participation high',7);
-
-----------------
---New test data
-----------------
-ALTER SEQUENCE events_event_id_seq RESTART WITH 1;
-ALTER SEQUENCE eventregistrations_registration_id_seq RESTART WITH 1;
-ALTER SEQUENCE feedback_feedback_id_seq RESTART WITH 1;
-ALTER SEQUENCE eventoutcomes_outcome_id_seq RESTART WITH 1;
+--ALTER SEQUENCE events_event_id_seq RESTART WITH 1;
+--ALTER SEQUENCE eventregistrations_registration_id_seq RESTART WITH 1;
+--ALTER SEQUENCE feedback_feedback_id_seq RESTART WITH 1;
+--ALTER SEQUENCE eventoutcomes_outcome_id_seq RESTART WITH 1;
 
 INSERT INTO events (event_name, event_leader_id, location, event_type, event_date, start_time, end_time, duration, description, supplies, safety_instructions)
 VALUES

@@ -1,15 +1,6 @@
 CREATE DATABASE ecocleanup;
 
--- Create enum type first
--- CREATE TYPE user_role AS ENUM ('customer', 'staff', 'admin');
 
--- CREATE TABLE users (
---   user_id SERIAL PRIMARY KEY,
---   username VARCHAR(20) NOT NULL UNIQUE,
---   password_hash TEXT NOT NULL,
---   email VARCHAR(320) NOT NULL,
---   person_role user_role NOT NULL
--- );
 CREATE TYPE role_enum AS ENUM ('volunteer', 'event_leader', 'admin');
 CREATE TYPE status_enum AS ENUM ('active','inactive');
 CREATE TYPE attendance AS ENUM ('registered', 'attended', 'no_show');
