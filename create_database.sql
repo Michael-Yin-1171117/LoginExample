@@ -18,7 +18,7 @@ CREATE TYPE attendance AS ENUM ('registered', 'attended', 'no_show');
 CREATE TABLE users(
 user_id SERIAL PRIMARY KEY,
 username VARCHAR(50) UNIQUE NOT NULL,
-password_hash VARCHAR(60) NOT NULL,
+password_hash TEXT NOT NULL,
 full_name VARCHAR(100),
 email VARCHAR(100),
 contact_number VARCHAR(20),

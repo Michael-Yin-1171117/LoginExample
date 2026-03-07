@@ -1,175 +1,171 @@
-# Login Example v3.0 (11 February 2026)
+# EcoCleanUp Hub - Community Cleanup Management System
 
-This sample app demonstrates a simple login system that allows users to
-register, log in, and view pages specific to their user role. Those pages don't
-really do anything: it's just a simplified example to share some basic tools
-and techniques you might need when building a real-world login system.
+## Project Overview
 
-There are three user roles in this system:
-- **Customer**
-- **Staff**
-- **Admin**
+EcoCleanUp Hub is a web-based platform developed for GreenSteps Initiative. The system helps coordinate community cleanup events by connecting volunteers with event leaders and providing administrators with oversight capabilities. 
 
-Anyone who registers via the app will be a **Customer**. The only way to create
-**Staff** or **Admin** accounts in this simple app is to insert them directly
-into the database. Hey, we didn't say this app was complete!
+---
 
-## Getting this Example Running
+## Technology Stack
 
-To run the example yourself, you'll need to:
+**Backend:** Python 3.13, Flask  
+**Database:** PostgreSQL  
+**Frontend:** Bootstrap 5, HTML, Jinja2 templates  
+**Authentication:** Flask-Bcrypt for password hashing  
+**Deployment:** PythonAnywhere  
 
-1. Open the project in Visual Studio Code.
-2. Create yourself a virtual environment.
-3. Install all of the packages listed in requirements.txt (Visual Studio will
-   offer to do this for you during step 2).
-4. Use the [Database Creation Script](create_database.sql) to create your own
-   copy of the **loginexample** database.
-5. Use the [Database Population Script](populate_database.sql) to populate
-   the **loginexample** ***users*** table with example users.
-6. Modify [connect.py](loginapp/connect.py) with the connection details for
-   your local database server.
-7. Run [The Python/Flask application](run.py).
+---
 
-At that point, you should be able to register yourself a new **customer**
-account or log in using one of the **customer**, **staff**, or **admin**
-accounts listed in the [Database Population Script](populate_database.sql).
+## User Roles & Features
 
-Enjoy!
+### Volunteer
 
-## Database Scripts
+- Browse and filter upcoming cleanup events (by date, location, type)
+- Register for events with scheduling conflict detection
+- View participation history
+- Submit feedback (rating 1–5 + comments)
+- Manage personal profile
 
-While we're talking about the database, you should take a look at:
-- [PostgreSQL script to create the necessary database](create_database.sql)
-- [PostgreSQL script to populate the database with users](populate_database.sql)
-- [Python script to create password hashes](password_hash_generator.py)
+### Event Leader
 
-What's that third one? Well, for that we need to talk about...
+- Create new events (name, location, date, time, duration, supplies, safety instructions)
+- Manage existing events (edit, cancel)
+- View volunteers registered for events
+- Track volunteer attendance
+- Record event outcomes (attendees, rubbish bags collected, recyclables sorted)
+- Review volunteer feedback
+- Generate event reports
 
-## Passwords
+### Admin
 
-One of the key things about this login system is that it doesn't actually store
-users' passwords in the database. That may lead you to ask...
+- Manage users (view, search, filter by role/status)
+- Activate/deactivate user accounts
+- View platform-wide statistics
+- Generate comprehensive reports
+- Oversee all events and users
 
-### Why not store passwords?
-People tend to re-use passwords across multiple websites, no matter how much
-security experts might tell them not to. That means if someone gets access to
-your database, containing a whole lot of users' passwords and other details
-like names or email addresses, they can use those passwords to compromise
-your users' accounts with other services (like their email, or bank account).
+---
 
-### How do you handle registration and login without storing passwords?
+## Database Design
 
-Easy! Well, sort of. It goes like this:
+The database follows the ERD provided in the assignment specification, with the following main tables:
 
-1. When the user first gives us a password during registration, we pass it
-   through a cryptographic "hash" function: a one-way mathematical operation
-   that transforms the original password into its corresponding "hash value"
-   or "hash". The same password always results in the same hash.
-   
-2. We throw away the original password, and just keep the hash.
-   
-3. The hash value is useless to an attacker: because the hash-function is
-   one-way, anyone who steals our database of user accounts can't work out
-   what the users' passwords are. Well, okay, there are clever ways around
-   that. Look up "rainbow tables" if you're interested. Read Cory Doctorow's
-   "Knights of the Rainbow Table" if you're *really* interested. But it takes
-   a whole lot more time and computing power for an attacker to get a user's
-   password back from its hash than it does to just read the plain password
-   straight out of your database.
+- **users** – Stores all user accounts with role-based access  
+- **events** – Cleanup event details  
+- **eventregistrations** – Tracks volunteer registrations  
+- **feedback** – Stores volunteer feedback and ratings  
+- **eventoutcomes** – Records event results (bags collected, recyclables sorted, etc.)
 
-4. When a user tries to log in, we take the password they supplied us, run it
-   through the exact same hash function, and then compare the hash to the one
-   we have on file. Because the same password will always produce the same
-   hash, if the two hashes match then the passwords must match! Again, kinda.
-   It's possible, though very unlikely, that two passwords may produce the
-   same hash value. In that case, you'd be able to log in using either
-   password. These kinds of "hash collisions" are extremely rare, though. Rare
-   enough that we won't worry about that here.
+---
 
-So, in short:
-1. The user gives us a password.
-2. We put that password though a one-way hashing algorithm to get its "hash".
-3. We store the hash, **not** the password.
-4. During login, we put the supplied password through the same algorithm.
-5. If the hash of the supplied password matches the hash of the user's original
-   password that we stored in step 3, then we know the user has supplied the
-   correct password... without having to know their password at all.
+## Test Accounts
 
-Cool, huh?
+| Role | Username | Password |
+|-----|-----|-----|
+| Volunteer | oliver_smith | Test123/ |
+| Volunteer | ethan_lee | Test123/ |
+| Event Leader | staff_liam | Test123/ |
+| Event Leader | staff_sophie | Test123/ |
+| Admin | admin_julia | Test123/ |
+| Admin | admin_michael | Test123/ |
 
-### Salting Passwords
+**Note:** All test accounts have hashed passwords stored in the database for security.
 
-Remember how we mentioned that it's technically possible for an attacker to
-work out a user's original password from its hash, just expensive? Well, it's
-actually not expensive at all if you just pre-calculate one of those "rainbow
-tables": essentially a giant table mapping hash values back to passwords. It
-takes time to generate something like that, and the tables are absolutely huge,
-but storage is pretty cheap these days and you only have to generate the table
-once per hash algorithm. Once someone has a rainbow table for a particular
-algorithm, translating hashes back to passwords is just a simple lookup.
-
-The contemporary solution to this is to add a "salt" to each password before
-you hash it. The salt is just some random string. It doesn't have to be secret,
-necessarily, just specific to your app (which we used to do in older versions
-of this example project) or, ideally, specific to each password (which we do in
-this current version). Adding a salt to your passwords totally breaks the whole
-"rainbow table" approach: an attacker can't just use an off-the-shelf table
-any more. With our old approach, one salt for the whole app, an attacker needs
-to generate a rainbow table specific to *our application's salt*. When you're
-using per-password salts, like we are here, an attacker would have to generate
-one of those giant tables to break *each individual password* in our database.
-
-Quantum computing will probably break all this, in the not-too-distant future,
-but for now this approach provides a reasonable means of protecting users'
-passwords from disclosure if an attacker gains access to our database.
-
-### How exactly do we do all this?
-
-With the [Flask-Bcrypt library](https://flask-bcrypt.readthedocs.io/en/1.0.1/)
-(which is really just a Flask-specific wrapper for the bcrypt library) and a
-couple lines of code.
-
-If you take a look at the [database creation script](create_database.sql),
-you'll see that instead of a "password" field to store the password, we have a
-"password_hash" field that stores a binary string of 60 characters.
-
-Flask-Bcrypt uses the [bcrypt algorithm](https://en.wikipedia.org/wiki/Bcrypt)
-(as you may have guessed from the name). Bcrypt password hashes bundle together
-a bcrypt version number, the password hash itself, and the salt value used to
-generate it. Together, depending on which version of the algorithm you're
-using, this is a string of either 59 or 60 bytes (always 60 bytes in the
-current version).
-
-The string of bytes making up a bcrypt hash are all in the "printable
-character" range, so can be displayed a text string. In a PostgreSQL database you
-could  store them as a `TEXT` or `CHAR(60)` column.  In PostgreSQL, TEXT is generally
-a better choice than CHAR(60) for storing bcrypt hashes. Although bcrypt hashes are 
-currently 60 characters long, CHAR(60) introduces fixed-length semantics that are 
-unnecessary and potentially confusing. PostgreSQL right-pads CHAR(n) values with spaces and ignores trailing spaces during comparisons, which means the stored value may not be preserved byte-for-byte as written.
-
-TEXT stores exactly the characters provided, with no padding or special comparison rules. 
-It has the same performance characteristics as CHAR(n) and VARCHAR(n) in PostgreSQL, 
-and avoids imposing an artificial length constraint. For sensitive values like password
-hashes, where exact preservation matters and formats may evolve TEXT is a better choice. 
-
-If this sounds terrifyingly complicated, don't worry. Take a look at the
-[Hash generator Python script](password_hash_generator.py) for an example of
-how to create the hashes (literally one line of code) and check a password
-against a hash (again, one line of code).
-
-If we were using the bcrypt library directly, or another option such as
-[Flask-Hashing](https://flask-hashing.readthedocs.io/en/latest/) (used in older
-versions of this example) then we'd need to handle the "salting" process
-ourselves. However, the Flask-Bcrypt library does this for us. We only have to
-call the `generate_password_hash(password)` function to generate a hash for a
-new `password` (e.g. when a user signs up or changes their password). That
-function generates a new salt value then uses it to hash the password in a
-single step.
-
-Once we've generated a password hash and stored it in our database, we can then
-call the `check_password_hash(pw_hash, password)` function to check a whether a
-`password` supplied during login matches the `pw_hash` stored in our database
-for that particular user account.
+---
 
 
-$2b$12$hHoMljE2DCSWMSTggd7dbO7Rt91K.lS0uA9LrzQZGEgM47gkaFWqm
+## Security Features
+
+- Passwords hashed using Flask_Bcrypt
+- Session-based authentication
+- Role-based access control
+- Input validation on all forms
+- SQL injection prevention via parameterized queries
+
+---
+
+## GenAI Usage Acknowledgement
+
+In accordance with COMP639 assessment guidelines, I acknowledge the use of Generative AI tools in the development of this project.
+
+### Tools Used
+
+ChatGPT – Primary AI assistant used throughout development
+
+### How AI Was Used
+
+#### 1. Code Debugging & Troubleshooting
+
+- Diagnosed database query errors
+- Resolved Flask routing issues 
+- Fixed template inheritance and variable scope issues
+- Debugged datetime parsing errors in event creation forms
+
+#### 2. Database Assistance
+
+- Helped create realistic user data 
+- Generated sample event descriptions with appropriate supplies and safety instructions
+- Created feedback data with varied ratings and realistic comments
+
+#### 3. UI/UX Improvements
+
+- Suggested Bootstrap classes for responsive layouts
+- Helped design consistent card layouts across user roles
+- Improved color scheme and visual hierarchy
+- Optimized button placement and sizing for different screen sizes
+
+#### 4. Report & Analytics Design
+
+- Designed admin report pages with meaningful statistics
+- Designed data presentation for event outcomes and volunteer participation
+- Designed summary cards for platform metrics
+
+#### 5. Code Optimization
+
+- Refactored repetitive code into reusable functions
+- Improved error handling and validation messages
+
+### Example Prompts Used
+
+- "Why am I getting 'relation does not exist' error in PostgreSQL?"
+- "How to fix 'Could not build url for endpoint' in Flask?"
+- "Generate 20 realistic volunteer names and email addresses for test data"
+- "Help me design a responsive event card layout with Bootstrap"
+- "What's the best way to structure admin analytics dashboard?"
+- "Debug this SQL query with subquery returning multiple columns"
+
+---
+
+## Deployment on PythonAnywhere
+
+The application is hosted on PythonAnywhere.
+
+To deploy your own instance:
+
+1. Create a PythonAnywhere account
+2. Set up a web app with manual configuration
+3. Clone your GitHub repository
+4. Create and configure the virtual environment
+5. Update database connection settings
+
+---
+
+## Author
+
+Michael Yin  
+Student ID: **1171117**
+
+GitHub: Michael-Yin-1171117  
+Project Repository: **EcoCleanUp**
+
+---
+
+## Acknowledgements
+
+- Course coordinator and teaching staff for the project specifications
+- Flask and Bootstrap communities for excellent documentation
+- ChatGPT for assistance with debugging and design suggestions
+
+---
+
+© 2026 EcoCleanUp - Community Cleanup Management System

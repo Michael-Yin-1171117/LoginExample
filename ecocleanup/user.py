@@ -66,8 +66,6 @@ def login():
                     session['username'] = account['username']
                     session['role'] = account['role']
                     
-                    # Check for event reminders on login
-                  #  check_event_reminders(account['user_id'])
                     
                     return redirect(user_home_url())
                 else:

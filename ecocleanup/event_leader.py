@@ -471,8 +471,7 @@ def event_leader_send_reminder(event_id):
         return render_template('access_denied.html'), 403
     
     print(f"Reminder sent for event {event_id}")
-    # Since we don't have a notifications table, we'll just show a message
-    # The reminder will be shown when volunteers log in (check_event_reminders function)
+
     return redirect(url_for('event_leader_volunteers', 
                           event_id=event_id, reminder_sent=True))
 
