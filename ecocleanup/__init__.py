@@ -28,4 +28,3 @@ from ecocleanup import user
 from ecocleanup import volunteer
 from ecocleanup import event_leader
 from ecocleanup import admin
-#from loginapp import events
