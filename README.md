@@ -157,7 +157,10 @@ To deploy your own instance:
 2. Set up a web app with manual configuration
 3. Clone your GitHub repository
 4. Create and configure the virtual environment
-5. Update database connection settings
+5. Configure database
+6. Create database tables and insert data
+7. Configure WSGI file
+8. Click the green Reload button on Web tab 
 
 ---
 
